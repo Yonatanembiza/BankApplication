@@ -3,17 +3,25 @@ package bank;
 import bank.domain.Account;
 import bank.domain.AccountEntry;
 import bank.domain.Customer;
-import bank.service.AccountServiceImpl;
 import bank.service.AccountService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.util.Collection;
 
 
-
-public class Application {
+@SpringBootApplication
+public class Application implements CommandLineRunner {
 	public static void main(String[] args) {
+		SpringApplication.run(Application.class, args);
+	}
+	@Autowired
+	AccountService accountService;
 
-		AccountService accountService = new AccountServiceImpl();
+	@Override
+	public void run(String... args) throws Exception {
 
 		// create 2 accounts;
 		accountService.createAccount(1263862, "Frank Brown");
@@ -37,8 +45,8 @@ public class Application {
 			System.out.println("Statement for Account: " + account.getAccountNumber());
 			System.out.println("Account Holder: " + customer.getName());
 			System.out.println("-Date-------------------------"
-							+ "-Description------------------"
-							+ "-Amount-------------");
+					+ "-Description------------------"
+					+ "-Amount-------------");
 			for (AccountEntry entry : account.getEntryList()) {
 				System.out.printf("%30s%30s%20.2f\n", entry.getDate()
 						.toString(), entry.getDescription(), entry.getAmount());
@@ -49,7 +57,6 @@ public class Application {
 					account.getBalance());
 		}
 	}
-
 }
 
 

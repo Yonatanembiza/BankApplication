@@ -8,21 +8,21 @@ import bank.integration.logging.Logger;
 import bank.integration.logging.LoggerImpl;
 import bank.repository.AccountRepository;
 import bank.repository.AccountRepositoryImpl;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 
+@Service
 public class AccountServiceImpl implements AccountService {
+	@Autowired
 	private AccountRepository accountRepository;
+	@Autowired
 	private CurrencyConverter currencyConverter;
+	@Autowired
 	private JMSSender jmsSender;
+	@Autowired
 	private Logger logger;
-	
-	public AccountServiceImpl() {
-		accountRepository = new AccountRepositoryImpl();
-		currencyConverter= new CurrencyConverterImpl();
-		jmsSender =  new JMSSenderImpl();
-		logger = new LoggerImpl();
-	}
 
 	public Account createAccount(long accountNumber, String customerName) {
 		Account account = new Account(accountNumber);
